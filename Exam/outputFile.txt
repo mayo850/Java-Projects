@@ -1,0 +1,4 @@
+Balance 1: $500.00
+Balance 2: $450.00
+Balance 3: $440.00
+Balance 4: $452.50
