@@ -1,0 +1,162 @@
+/**
+ * A Sudoku solver using recursive backtracking. The initial
+ * board is read from a file. The file has 9 rows of 9 integers
+ * where a 0 indicates a blank cell on the board. The initial
+ * board is printed as well as the solution.
+ */
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Sudoku {
+
+	private static final int SIZE = 9;
+	
+	public static void main(String[] args) throws FileNotFoundException {
+		Scanner console = new Scanner(System.in);
+		Scanner fileIn = getFileScanner(console);
+		int[][] board = readBoard(fileIn);
+		
+		System.out.println("\nInitial Board:");
+		printBoard(board);
+		
+		System.out.println("\n\nSolution:");
+		if (solveSudoku(board))
+			printBoard(board);
+		else
+			System.out.println("No solution");
+	}
+	
+	/**
+	 * Requires the user to enter a filename until the filename is valid
+	 * @param console - facilitates keyboard input
+	 * @return Scanner connected to the input file
+	 * @throws FileNotFoundException if the file is not found
+	 */
+	public static Scanner getFileScanner(Scanner console)
+			throws FileNotFoundException {
+		System.out.print("Enter the filename with the puzzle: ");
+		String filename = console.nextLine();
+		File inputFile = new File(filename);
+		while (!inputFile.canRead()) {
+			System.out
+					.println("Error. File cannot be found or cannot be read.");
+			System.out.print("Enter the filename with the puzzle: ");
+			filename = console.nextLine();
+			inputFile = new File(filename);
+		}
+		return new Scanner(inputFile);
+	}
+	
+	/**
+	 * Reads the sudoku board from a file into a 2D array
+	 * @param fileIn - the Scanner connected to the file with the Sudoku initial board
+	 * @return the 2D array representing the Sudoku board
+	 */
+	public static int[][] readBoard(Scanner fileIn){
+		int[][] board = new int[SIZE][SIZE];
+		for (int row = 0; row < SIZE; row++) {
+			for (int col = 0; col < SIZE; col++) {
+				board[row][col] = fileIn.nextInt();
+			}
+		}
+		
+		return board;
+	}
+
+	/**
+	 * Prints the sudoku board with one space between each number
+	 * @param board - the sudoku board to be printed
+	 */
+	private static void printBoard(int[][] board) {
+		for (int i = 0; i < SIZE; i++) {
+			for (int j = 0; j < SIZE; j++) {
+				System.out.print(board[i][j] + " ");
+			}
+			System.out.println("");
+		}
+	}
+	
+	/**
+	 * Solves the Sudoku puzzle using recursive backtracking
+	 * @param board - the Sudoku board where 0 indicates a blank cell
+	 * @return true if the puzzle has been solved successfully
+	 */
+	private static boolean solveSudoku(int[][] board) {
+		int blankCell = findBlankCell(board);
+		if (blankCell == -1) {
+			// means no cells are blank and the puzzle is solved
+			return true;
+		}
+
+		int row = blankCell / SIZE;
+		int col = blankCell % SIZE;
+		
+		for (int i = 1; i <= SIZE; i++) {
+			// Can assign i to the cell or not?
+			// The cell is board[row][col].
+			if (isSafe(board, i, row, col)) {
+				board[row][col] = i;
+				// backtracking
+				if (solveSudoku(board))
+					return true;
+				// Ff we can't proceed with this solution,
+				// reassign the cell
+				board[row][col] = 0;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Finds the first blank cell (ie. cell storing 0) in the puzzle
+	 * @param board - the Sudoku board being solved
+	 * @return the first blank cell in row major order or -1 if no
+	 * blank cells
+	 */
+	public static int findBlankCell(int[][] board) {
+		for (int row = 0; row < SIZE; row++) {
+			for (int col = 0; col < SIZE; col++) {
+				if (board[row][col] == 0) {
+					return row * board.length + col;
+				}
+			}
+		}
+		return -1; // means grid is full
+	}
+
+	/**
+	 * Check if num can be placed in the board at row, col
+	 * @param board - the Sudoku board to be solved
+	 * @param num - the number to be placed at cell row, col
+	 * @param row - the row index of the cell in question
+	 * @param col - the col index of the cell in question
+	 * @return true if placing num at cell row, col does not
+	 * violate the rules of Sudoku
+	 */
+	private static boolean isSafe(int[][] board, int num, int row, int col) {
+		// checking in row
+		for (int i = 0; i < SIZE; i++) {
+			// there is a cell with same value
+			if (board[row][i] == num)
+				return false;
+		}
+		// checking column
+		for (int i = 0; i < SIZE; i++) {
+			// there is a cell with same value
+			if (board[i][col] == num)
+				return false;
+		}
+		// checking sub board
+		int row_start = (row / 3) * 3;
+		int col_start = (col / 3) * 3;
+		for (int i = row_start; i < row_start + 3; i++) {
+			for (int j = col_start; j < col_start + 3; j++) {
+				if (board[i][j] == num)
+					return false;
+			}
+		}
+		return true;
+	}	
+}

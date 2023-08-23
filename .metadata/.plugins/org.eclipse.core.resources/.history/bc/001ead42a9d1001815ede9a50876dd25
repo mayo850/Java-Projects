@@ -1,0 +1,52 @@
+/*
+ * Name:
+ * Date:
+ * Course: CSC211
+ * Program:   Program 4--PayCalculator
+ * 
+ * Description:
+ * 
+ * 
+ * Citations of Assistance (who and what):
+ */
+
+import java.util.*;
+
+public class PayCalculator {
+
+	// class constants
+	
+	public static void main(String[] args) {
+		Scanner console = new Scanner(System.in);
+		
+		introduction();
+		
+		int numEmployees = getInteger("Enter number of employees: ", console);
+		System.out.println();
+		
+		
+		for (int employee = 1; employee <= numEmployees; employee++ ){
+			
+			double netPay = processOneEmployee(console, employee);
+		}
+		
+		double average = 0;
+		
+	}
+	
+	/*
+	 * Method introduction tells the user what value he will need to input
+	 * and what output the program will produce.
+	 */
+	public static void introduction(){
+		System.out.println("Pay Calculator");
+		System.out.println();
+		System.out.println("After entering the number of employees, the id and");
+		System.out.println("number of hours worked will be entered for each");
+		System.out.println("employee. The pay statement for each employee, as");
+		System.out.println("well as summary data, will be displayed.");
+		System.out.println();
+	}
+	
+
+}

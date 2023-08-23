@@ -1,0 +1,12 @@
+CSC Grade Marks
+
+Routine Assignment:       9.43
+Quizzes:                  9.37
+Labs:                     9.67
+Programming Assignment:   14.43
+1st Midterm:              10.95
+2nd Midterm:              11.925
+
+Total: 0.88 (B+)
+Total (with 0 on final): 0.66 (D)
+Total (with 100 on final): 0.91 (A-)

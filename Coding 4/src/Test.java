@@ -1,0 +1,49 @@
+
+public class Test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int[] myArray = {4, 1, 5, 9, 2, 4, 2};
+		
+		LinkedIntList myList = new LinkedIntList();
+		
+
+		myList.createListFromArray(myArray);
+		
+		
+		
+		
+//		System.out.println("Before: " + myList.toLinkedForm());
+//		myList.removeStartAndEnd();
+//		System.out.println("After: " + myList.toLinkedForm());
+//		
+//		System.out.println(myList.toLinkedForm());
+//		System.out.println(myList.lastIndexOf(9));
+//		
+//		System.out.println("Before: " + myList.toLinkedForm());
+//		System.out.println(myList.findValue(1));
+//		System.out.println("After: " + myList.toLinkedForm());
+//		
+		System.out.println("Before: " + myList.toLinkedForm());
+		myList.doubleList();
+		System.out.println("After: " + myList.toLinkedForm());
+//		
+//		System.out.println("Before: " + myList.toLinkedForm());
+//		myList.removeRange(3, 7);
+//		System.out.println("After: " + myList.toLinkedForm());
+//		
+//		System.out.println("Before: " + myList.toLinkedForm());
+//		myList.removeEnA();
+//		System.out.println("After: " + myList.toLinkedForm());
+		
+		
+//		System.out.println(myList.toLinkedForm());
+//		myList.bringLastToFront();
+//		System.out.println(myList.toLinkedForm());
+		
+	}
+	
+	
+
+}

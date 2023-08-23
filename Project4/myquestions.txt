@@ -1,0 +1,31 @@
+Q:Is it Alive?
+Q:Does it live in the wild?
+Q:Is it mostly green?
+Q:Does it flower?
+A:Dogwood
+A:Horsetail
+Q:Is it the king of the Jungle?
+A:Lion
+A:Fox
+Q:Is it a man's best friend?
+Q:Does it bark?
+A:Dog
+A:Cat
+Q:Does it live in a fish bowl?
+A:Gold Fish
+A:Human
+Q:Does it have tires?
+Q:Does it have two tires?
+Q:Does it have a motor?
+A:Motor Bike
+A:Bicycle
+Q:Does it have three tires?
+A:Rickshaw
+A:Car
+Q:Can you eat it?
+Q:Is it healthy?
+A:Food
+A:Junk Food
+Q:Used as a decoration?
+A:Poster
+A:computer

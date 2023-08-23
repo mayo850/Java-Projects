@@ -1,0 +1,4 @@
+Deposit 500
+Withdraw 50
+Withdraw 10
+Deposit 12.50
