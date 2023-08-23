@@ -1,0 +1,12 @@
+CSC 211 Grade
+
+Routine Assignments:      9.92
+Quizzes:                   9.0
+Labs:                      9.9
+Programming Assignments:  11.78
+1st Midterm:              13.95
+2nd Midterm:              10.80
+
+Total: 0.87 (B+)
+Total (with 0 on final): 0.65 (D)
+Total (with 100 on final): 0.90 (A-)

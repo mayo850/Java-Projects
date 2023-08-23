@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="isRegEx" value="false"/>
+		<item key="selection" value="update"/>
+		<item key="casesensitive" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="wrap" value="true"/>
+		<item key="wholeword" value="false"/>
+		<list key="findhistory">
+			<item value="/**"/>
+			<item value="import java.util.ArrayList;"/>
+			<item value="if (par.charAt(0) == &apos;(&apos; &amp;&amp; par.charAt(par.length() - 1) == &apos;)&apos;) {"/>
+			<item value="System.out.println(&quot;Before: &quot; + myList.toLinkedForm());"/>
+			<item value="System.out.println(myList.toLinkedForm());"/>
+			<item value="if(size == 0) {"/>
+			<item value="        ArrayIntList sums = myList1.cumulativeSum();"/>
+			<item value="indexOfCard"/>
+			<item value="update"/>
+			<item value="CardPanel"/>
+			<item value="dealCard"/>
+			<item value="shuffle"/>
+			<item value="PokerDeck"/>
+			<item value="index"/>
+			<item value="indexof"/>
+		</list>
+		<list key="replacehistory">
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_WIDTH" value="294"/>
+		<item key="DIALOG_FONT_NAME" value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont"/>
+		<item key="DIALOG_HEIGHT" value="408"/>
+		<item key="DIALOG_X_ORIGIN" value="595"/>
+		<item key="DIALOG_Y_ORIGIN" value="9"/>
+	</section>
+</section>
