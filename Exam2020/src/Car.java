@@ -52,7 +52,8 @@ public class Car {
 		}
 		
 	}
-	public String toStrin() {
-		return("");
+	@Override
+	public String toString() {
+		return modelYear + " " + make + " " + model + " (" + speed + " mph)";
 	}
 }

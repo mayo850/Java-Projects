@@ -8,6 +8,10 @@ public class Employee {
 	
 	
 	// constructor
+	public Employee() {
+		this(0);
+	}
+
 	public Employee(int years) {
 		this.years = years;
 	}

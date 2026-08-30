@@ -153,7 +153,7 @@ public class PokerCard {
     * if they have the same suit and value.
     */
    @Override
-   public boolean equals(Object obj) {
+	   public boolean equals(Object obj) {
       if (obj != null && (obj instanceof PokerCard)) {
           PokerCard that = (PokerCard)obj;
           return (this.suit == that.suit && this.value == that.value);
@@ -161,6 +161,11 @@ public class PokerCard {
     	  return false;
       }
 
-   }
+	   }
 
-} // end class PokerCard
+	   @Override
+	   public int hashCode() {
+	      return 31 * suit + value;
+	   }
+
+	} // end class PokerCard

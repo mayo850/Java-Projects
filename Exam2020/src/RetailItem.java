@@ -8,10 +8,12 @@ public class RetailItem {
 	
 	public RetailItem(String description, int unitsOnHands, double price) {
 		if (unitsOnHands < 0 || price < 0) throw new IllegalArgumentException();
-		
+		this.description = description;
+		this.unitsOnHands = unitsOnHands;
+		this.price = price;
 	}
 	public RetailItem(String description, double price) {
-		this.unitsOnHands = 0;
+		this(description, 0, price);
 	}
 // acessor method
 	public String getDescription() {
@@ -23,23 +25,16 @@ public class RetailItem {
 		return totalValue;
 	}
 	public void sold(int numItems) {
-		unitsOnHands = numItems - unitsOnHands;
-		if (unitsOnHands < 0) throw new IllegalArgumentException();
-		
+		if (numItems < 0 || numItems > unitsOnHands) throw new IllegalArgumentException();
+		unitsOnHands -= numItems;
 	}
 	public void addToinventory (int numAdded) {
 		if (numAdded < 0) throw new IllegalArgumentException();
-		
-		
+		unitsOnHands += numAdded;
 	}
 	public boolean isWorthMore(RetailItem param) {
-		if (param > totalValue) {
-			return true;
-		}
-		else {
-			return false;
-		}
-		
+		if (param == null) throw new IllegalArgumentException();
+		return getValue() > param.getValue();
 	}
 	
 

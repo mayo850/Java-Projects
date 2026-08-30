@@ -178,10 +178,15 @@ class IntTree {
 		return sumOddBranches(overallRoot);
 	}
 	
-	private int sumOddBranches(IntTree root) {
-		
-		return 1;
-		
+	private int sumOddBranches(IntTreeNode root) {
+		if (root == null) {
+			return 0;
+		}
+		int sum = sumOddBranches(root.left) + sumOddBranches(root.right);
+		if ((root.left != null || root.right != null) && Math.abs(root.data % 2) == 1) {
+			sum += root.data;
+		}
+		return sum;
 	}
 	
 	

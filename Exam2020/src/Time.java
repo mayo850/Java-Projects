@@ -57,11 +57,13 @@ public class Time {
 	public int getSeconds() {
 		return second;
 	}
-	public toUniversalString() {
-		String.format(format, args)
+	public String toUniversalString() {
+		return String.format("%02d:%02d:%02d", hour, minute, second);
 	}
+	@Override
 	public String toString() {
-		
+		int displayHour = hour == 0 || hour == 12 ? 12 : hour % 12;
+		return String.format("%d:%02d:%02d %s", displayHour, minute, second, hour < 12 ? "AM" : "PM");
 	}
 	
 }

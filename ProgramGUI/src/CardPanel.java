@@ -10,6 +10,7 @@ import java.awt.*;
 import java.io.*;
 
 public class CardPanel extends JPanel {
+	private static final long serialVersionUID = 1L;
 
 	public static final int X_OFFSET = 20;
 	public static final int Y_OFFSET = 10;

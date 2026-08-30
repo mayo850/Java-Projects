@@ -190,59 +190,35 @@ public class ArrayIntList {
 		}
 	}
 	
-	public static boolean isIncreasing(){
-		
-	    for(int i=1; i<arrayIntList.length;i++)
-	    {
-	        if(arrayIntList[i-1] > arrayIntList[i])
-	            return false;
-	    }
-	    return true;
-	 }
+	public boolean isIncreasing(){
+		for (int i = 1; i < size; i++) {
+			if (elementData[i - 1] > elementData[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	
 	
-	public void addToFront(int num , int numTimes) {
-		if(numTimes <= 0) {
+	public void addToFront(int num, int numTimes) {
+		if (numTimes <= 0) {
 			throw new IllegalArgumentException();
 		}
-		
-		
-		int [] n = new int [size + numTimes];
-		
-		int j = 0;
-		
-		for(int i = 1; i < n.lenght(); i++) {
-			if(i < numTimes) {
-				n[i - 1] = num;
-			} else {
-				n[i] = elementData[j];
-			}
-			
-			j++;
-			
-		}
-		
-		elementData = n;
-		
+		ensureCapacity(size + numTimes);
+		System.arraycopy(elementData, 0, elementData, numTimes, size);
+		Arrays.fill(elementData, 0, numTimes, num);
 		size += numTimes;
-		
-		
 	}
 	
 	public ArrayIntList cumulativeSum() {
-		ArrayIntList n = new ArrayIntList();
-		
-		n.elementData[n.size] = elementData[0];
-		
-		n.size = size;
-		
-		
-		for(int i = 1; i < size; i++) {
-			n.elementData[i] = elementData[i-1] + elementData[i];
+		ArrayIntList result = new ArrayIntList(size);
+		int sum = 0;
+		for (int i = 0; i < size; i++) {
+			sum += elementData[i];
+			result.add(sum);
 		}
-		
-		return n;
+		return result;
 	}
 	
 	
@@ -251,18 +227,8 @@ public class ArrayIntList {
 			throw new IllegalArgumentException();
 			
 		}
-		size = size - number;
-		
-		int temp [] = new int[size];
-		
-		int count = number;
-		
-		for(int i = 0; i < size; i++ ) {
-			temp[i] = elementData[count];
-			count++;
-		}
-		
-		elementData = temp;
+		System.arraycopy(elementData, number, elementData, 0, size - number);
+		size -= number;
 	}
 	
 	public void repeat(int numTimes) {
@@ -271,21 +237,13 @@ public class ArrayIntList {
 			throw new IllegalArgumentException();
 		}
 		
-		size = size * numTimes;
-		int [] temp = new int[size];
-		
-		j = 0;
-		
-		for(int i = 0; i < size; i++) {
-			temp[i] = elementData[j];
-			
-			if(numberTimes % i == 0) {
-				j++;
-			}
-				
+		int originalSize = size;
+		int[] original = Arrays.copyOf(elementData, originalSize);
+		ensureCapacity(originalSize * numTimes);
+		for (int repetition = 0; repetition < numTimes; repetition++) {
+			System.arraycopy(original, 0, elementData, repetition * originalSize, originalSize);
 		}
-		
-		elementData = temp;
+		size = originalSize * numTimes;
 	}
 	
 	

@@ -15,7 +15,7 @@ public class VideoPokerGui extends MouseAdapter implements ActionListener {
 
 	// main method
 	public static void main (String []args) {
-		VideoPokerGui gui = new VideoPokerGui();
+		SwingUtilities.invokeLater(VideoPokerGui::new);
 	}
 	
 	
@@ -101,6 +101,104 @@ public class VideoPokerGui extends MouseAdapter implements ActionListener {
 		
 		return south;
 		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		Object source = event.getSource();
+		if (source == this.quitButton) {
+			Window window = SwingUtilities.getWindowAncestor(this.display);
+			if (window != null) {
+				window.dispose();
+			}
+			return;
+		}
+		if (source == this.dealButton) {
+			deal();
+		} else if (source == this.drawButton) {
+			draw();
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent event) {
+		if (!this.drawButton.isEnabled()) {
+			return;
+		}
+		int index = this.display.indexOfCard(event.getX(), event.getY());
+		if (index >= 0) {
+			this.face[index] = !this.face[index];
+			this.display.update();
+		}
+	}
+
+	private void deal() {
+		try {
+			int requestedBet = Integer.parseInt(this.betField.getText().trim());
+			if (requestedBet <= 0 || requestedBet > this.money) {
+				throw new IllegalArgumentException();
+			}
+			this.bet = requestedBet;
+		} catch (IllegalArgumentException exception) {
+			this.guideLabel.setText("Enter a whole-number bet between 1 and $" + this.money + ".");
+			return;
+		}
+
+		this.money -= this.bet;
+		this.deck.shuffle();
+		for (int i = 0; i < NUM_CARDS; i++) {
+			this.cards[i] = this.deck.dealCard();
+			this.face[i] = true;
+		}
+		this.moneyLabel.setText("You have $" + this.money);
+		this.guideLabel.setText("Click cards to hold them, then click DRAW.");
+		this.dealButton.setEnabled(false);
+		this.drawButton.setEnabled(true);
+		this.betField.setEnabled(false);
+		this.display.update();
+	}
+
+	private void draw() {
+		for (int i = 0; i < NUM_CARDS; i++) {
+			if (!this.face[i]) {
+				this.cards[i] = this.deck.dealCard();
+				this.face[i] = true;
+			}
+		}
+		int rank = getPokerRank();
+		int winnings = this.bet * payoutFor(rank);
+		this.money += winnings;
+		this.moneyLabel.setText("You have $" + this.money);
+		this.guideLabel.setText(winnings > 0 ? "You won $" + winnings + "." : "No payout this round.");
+		this.dealButton.setEnabled(this.money > 0);
+		this.drawButton.setEnabled(false);
+		this.betField.setEnabled(this.money > 0);
+		this.display.update();
+	}
+
+	private int payoutFor(int rank) {
+		switch (rank) {
+			case PokerRank.ROYAL_FLUSH:
+				return 250;
+			case PokerRank.STRAIGHT_FLUSH:
+				return 50;
+			case PokerRank.FOUR_OF_A_KIND:
+				return 25;
+			case PokerRank.FULL_HOUSE:
+				return 9;
+			case PokerRank.FLUSH:
+				return 6;
+			case PokerRank.STRAIGHT:
+				return 4;
+			case PokerRank.TRIPLE:
+				return 3;
+			case PokerRank.TWO_PAIR:
+				return 2;
+			case PokerRank.PAIR:
+				return 1;
+			default:
+				return 0;
+		}
 	}
 	
 	

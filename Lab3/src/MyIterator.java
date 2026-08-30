@@ -1,5 +1,7 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,18 +10,19 @@ import java.util.Scanner;
 
 
 
- class MyIterator<E> implements Iterator<E>{
+	 class MyIterator {
 
 	 
-	 public static void main(String[] args) throws NoSuchElementException {
-			DecimalFormat df = new DecimalFormat("##.###");
+		 public static void main(String[] args) throws FileNotFoundException {
+				DecimalFormat df = new DecimalFormat("##.###");
 
-			Scanner fileInput = new Scanner(new File("data.txt"));
-			List<Double> numbers = new LinkedList<Double>();
+				List<Double> numbers = new LinkedList<>();
 
-			while (fileInput.hasNextDouble()) {
-				numbers.add(fileInput.nextDouble());
-			}
+				try (Scanner fileInput = new Scanner(new File("data.txt"))) {
+					while (fileInput.hasNextDouble()) {
+						numbers.add(fileInput.nextDouble());
+					}
+				}
 
 			double average = computeAverage(numbers);
 			double standDev = computeStandardDev(numbers, average);
@@ -42,27 +45,14 @@ import java.util.Scanner;
 		 * @return the average of the list
 		 */
 		public static double computeAverage(List<Double> list) throws NoSuchElementException{
-			try {
-				Iterator<Double> itr = list.iterator();
+			if (list.isEmpty()) {
+				throw new NoSuchElementException("The list must contain at least one value.");
+			}
 			double sum = 0;
-			int size = list.size();
-			
-			if(itr.hasNext()) {
-				int i = 0;
-				while( i < size){
-					sum += itr.next();
-					i++;
-				}
-				
-				return sum/size;
+			for (double value : list) {
+				sum += value;
 			}
-			
-			return sum;
-				
-			} catch (Exception NoSuchElementException) {
-				System.out.println("No Such Element Found exception is occured !!! ");
-			}
-			
+			return sum / list.size();
 		}
 		
 		/**
@@ -71,31 +61,15 @@ import java.util.Scanner;
 		 * @param average- the average of that list
 		 * @return the standard deviation of that list
 		 */
-		public static double computeStandardDev throws ConcurrentModificationException(List<Double> list, double average){
-			try {
-				Iterator<Double> itr = list.iterator();
-			int size = list.size();
-			
-			double var = 0;
-			int i = 0;
-			
-			while( i < size){
-				
-				double listVal = itr.next();;
-				double sdToMean = Math.pow(listVal - average, 2);
-				
-				var += sdToMean;
-				i++; 	
+		public static double computeStandardDev(List<Double> list, double average) throws ConcurrentModificationException{
+			if (list.isEmpty()) {
+				throw new NoSuchElementException("The list must contain at least one value.");
 			}
-			
-			double averageOfDiff = var/size;
-			
-			return Math.sqrt(averageOfDiff);
-				
-			} catch (Exception ConcurrentModificationException) {
-				System.out.println("\nConcurrent Modification Exception is occured !!! ");
+			double variance = 0;
+			for (double value : list) {
+				variance += Math.pow(value - average, 2);
 			}
-			
+			return Math.sqrt(variance / list.size());
 		}
 		
 		/**
@@ -105,27 +79,14 @@ import java.util.Scanner;
 		 * @param average - the average of that list
 		 * @param standDev - the standard deviation of that list
 		 */
-		public static void removeOutliers throws IllegalStateException(List<Double> list, double average, double standDev){
-			try {
-				Iterator<Double> itr = list.iterator();
-			int size = list.size();
-			
-			int i = 0;
-			while( i < size){
-				double var = itr.next();
-				if(var < average - 2*standDev) {
+		public static void removeOutliers(List<Double> list, double average, double standDev) throws IllegalStateException{
+			Iterator<Double> itr = list.iterator();
+			while (itr.hasNext()) {
+				double value = itr.next();
+				if (Math.abs(value - average) > 2 * standDev) {
 					itr.remove();
 				}
-				i++;
 			}
-				
-			} catch (Exception IllegalStateException) {
-				System.out.println("Illegal State Exception is occured !!! ");
-				
-			}
-
-			
-			
 		}
 
 }
