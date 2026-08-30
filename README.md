@@ -31,4 +31,3 @@ GUI and audio exercises require a desktop environment and compatible media suppo
 - Each top-level folder is an independent exercise or assignment.
 - `scripts/compile-all.sh` provides a repeatable Java 17 build.
 - `.github/workflows/java-build.yml` verifies every project on pushes and pull requests.
-- Eclipse workspace caches, platform metadata, generated files, and redundant nested archives are excluded.
